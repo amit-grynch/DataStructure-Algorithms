@@ -18,7 +18,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author amitg
@@ -43,13 +45,18 @@ public class TwoSum {
 				int targetSum = Integer.parseInt(br.readLine());
 				int resultantIndices[];
 
-				// Brute Force Approach
+				// Solving Using Brute Force Approach 1
+
 				resultantIndices = twoSum(intArray, targetSum);
 				System.out.println("Indices Are : " + resultantIndices[0] + "  " + resultantIndices[1]);
-				
-				// Optimizing the Solution
-				resultantIndices = twoSumUsingBruteForce(intArray, targetSum);
 
+				// Solving Using Brute Force Approach 2
+
+				resultantIndices = twoSumUsingBruteForce(intArray, targetSum);
+				System.out.println("Indices Are : " + resultantIndices[0] + "  " + resultantIndices[1]);
+
+				// Solving using Map
+				resultantIndices = findingTwoSumUsingMap(intArray, targetSum);
 				System.out.println("Indices Are : " + resultantIndices[0] + "  " + resultantIndices[1]);
 				System.out.println(" Do you want to continue then Press Y ?");
 				userChoice = br.readLine().charAt(0);
@@ -59,6 +66,8 @@ public class TwoSum {
 		}
 	}
 
+	// Runtime: 49 ms, faster than 36.96% of Java online submissions for Two Sum.
+	// Memory Usage: 40 MB, less than 5.65% of Java online submissions for Two Sum.
 	public static int[] twoSum(int nums[], int target) {
 		int targetIndices[] = new int[2];
 		int firstNum;
@@ -76,6 +85,9 @@ public class TwoSum {
 		return targetIndices;
 	}
 
+	// Runtime: 1000 ms, faster than 5.09% of Java online submissions for Two Sum.
+	// Memory Usage: 40.1 MB, less than 5.65% of Java online submissions for Two
+	// Sum.
 	public static int[] twoSumUsingBruteForce(int numArray[], int target) {
 		int targetIndices[] = new int[2];
 		List<Integer> numList = new ArrayList<Integer>(numArray.length);
@@ -101,4 +113,21 @@ public class TwoSum {
 		return targetIndices;
 	}
 
+	// Runtime: 1 ms, faster than 99.88% of Java online submissions for Two Sum.
+	// Memory Usage: 39.9 MB, less than 5.65% of Java online submissions for Two Sum
+	public static int[] findingTwoSumUsingMap(int nums[], int target) {
+		int targetIndices[] = new int[2];
+		Map<Integer, Integer> storeMap = new HashMap<Integer, Integer>();
+		for (int startIndex = 0; startIndex < nums.length; startIndex++) {
+			if (storeMap.containsKey(target - nums[startIndex])) {
+				targetIndices[0] = startIndex;
+				targetIndices[1] = storeMap.get(target - nums[startIndex]);
+				return targetIndices;
+			} else {
+				storeMap.put(nums[startIndex], startIndex);
+			}
+
+		}
+		return targetIndices;
+	}
 }
