@@ -58,6 +58,7 @@ public class MaximumSubarray {
 	 * @param nums
 	 * @return
 	 */
+	// 202 / 202 test cases passed, but took too long.
 	public static int maxSubArray(int[] nums) {
 		int largestSubarraySum;
 		int tempSum;
