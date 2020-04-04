@@ -28,6 +28,25 @@ public class MaximumSubarray {
 	/**
 	 * @param args
 	 */
+	
+	/**
+	 * @param args
+	 */
+	/**
+	 * @param args
+	 */
+	/**
+	 * @param args
+	 */
+	/**
+	 * @param args
+	 */
+	/**
+	 * @param args
+	 */
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -43,8 +62,15 @@ public class MaximumSubarray {
 					intArray[arrayIndex] = Integer.parseInt(stringIntegerArray[arrayIndex]);
 				}
 				// Using Brute Force Approach To Solve
-				int largetSubarraySum = maxSubArray(intArray);
-				System.out.println(" Larget Sum of contiguous Subarray is = " + largetSubarraySum);
+				 int largetSubarraySum = maxSubArray(intArray);
+				 System.out.println(" Larget Sum of contiguous Subarray is = " +
+
+largetSubarraySum);
+
+				// Optimizing The Solution In O(n) time complexity and O(1) Space Complexity
+				int largestSumInArray = maxSubArrayCalculation(intArray);
+				System.out.println(" Larget Sum of contiguous Subarray is = " + largestSumInArray);
+				
 				System.out.println(" Do you want to continue then Press Y ?");
 				userChoice = br.readLine().charAt(0);
 			} while (userChoice == 'Y' || userChoice == 'y');
@@ -54,11 +80,12 @@ public class MaximumSubarray {
 		}
 	}
 
+	
+	// 202 / 202 test cases passed, but took too long. Exceeded Time Limit
 	/**
 	 * @param nums
 	 * @return
 	 */
-	// 202 / 202 test cases passed, but took too long.
 	public static int maxSubArray(int[] nums) {
 		int largestSubarraySum;
 		int tempSum;
@@ -79,5 +106,26 @@ public class MaximumSubarray {
 		} else
 			largestSubarraySum = sortedSumStore.last();
 		return largestSubarraySum;
+	}
+
+	
+	// Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Subarray.
+	// Memory Usage: 39.6 MB, less than 7.98% of Java online submissions for Maximum Subarray.
+	/**
+	 * @param nums
+	 * @return
+	 */
+	public static int maxSubArrayCalculation(int[] nums) {
+		int sum = 0;
+		int max = Integer.MIN_VALUE;
+		for (int startIndex = 0; startIndex < nums.length; startIndex++) {
+			if (sum < 0)
+				sum = nums[startIndex];
+			else
+				sum += nums[startIndex];
+			if (max < sum)
+				max = sum;
+		}
+		return max;
 	}
 }
