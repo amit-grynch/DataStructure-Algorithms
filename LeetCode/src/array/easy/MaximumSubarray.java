@@ -59,7 +59,7 @@ public class MaximumSubarray {
 				int largestSumUsingDP = maxSubArrayUsingDP(intArray);
 				System.out.println(" Larget Sum of contiguous Subarray is = " + largestSumUsingDP);
 
-				//Optimizing The Solution Using DP  by Reducing Space Complexity from O(n) to (O1) and Still Has Time Complexity O(n)
+				//Optimizing The Solution Using DP  by Reducing Space Complexity from O(n) to O(1) and Still Has Time Complexity O(n)
 				int largestSumUsingDPOptimizedSpace = maxSubArrayUsingDPOptimizedSpace(intArray);
 				System.out.println(" Larget Sum of contiguous Subarray is = " + largestSumUsingDPOptimizedSpace);
 				
