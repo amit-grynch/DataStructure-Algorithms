@@ -19,19 +19,25 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javafx.animation.StrokeTransition;
+
+/**
+ * @author amitg
+ *
+ */
 /**
  * @author amitg
  *
  */
 public class MaximumSubarray {
 
-	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int largetSubarraySum;
 		try {
 			char userChoice;
 			do {
@@ -43,16 +49,24 @@ public class MaximumSubarray {
 				for (int arrayIndex = 0; arrayIndex < arraySize; arrayIndex++) {
 					intArray[arrayIndex] = Integer.parseInt(stringIntegerArray[arrayIndex]);
 				}
+
 				// Using Brute Force Approach To Solve
-				 int largetSubarraySum = maxSubArray(intArray);
+				 largetSubarraySum = maxSubArray(intArray);
 				 System.out.println(" Larget Sum of contiguous Subarray is = " +
+				 largetSubarraySum);
 
-largetSubarraySum);
+				// Optimizing The Solution Using DP with Time-Complexity O(n) and Space Complexity O(n)
+				int largestSumUsingDP = maxSubArrayUsingDP(intArray);
+				System.out.println(" Larget Sum of contiguous Subarray is = " + largestSumUsingDP);
 
-				// Optimizing The Solution In O(n) time complexity and O(1) Space Complexity
-				int largestSumInArray = maxSubArrayCalculation(intArray);
-				System.out.println(" Larget Sum of contiguous Subarray is = " + largestSumInArray);
+				//Optimizing The Solution Using DP  by Reducing Space Complexity from O(n) to (O1) and Still Has Time Complexity O(n)
+				int largestSumUsingDPOptimizedSpace = maxSubArrayUsingDPOptimizedSpace(intArray);
+				System.out.println(" Larget Sum of contiguous Subarray is = " + largestSumUsingDPOptimizedSpace);
 				
+				// Optimizing The Solution In O(n) Time complexity and O(1) Space Complexity
+				 int largestSumInArray = maxSubArrayCalculation(intArray);
+				 System.out.println(" Larget Sum of contiguous Subarray is = " + largestSumInArray);
+
 				System.out.println(" Do you want to continue then Press Y ?");
 				userChoice = br.readLine().charAt(0);
 			} while (userChoice == 'Y' || userChoice == 'y');
@@ -62,11 +76,11 @@ largetSubarraySum);
 		}
 	}
 
-	
-	// 202 / 202 test cases passed, but took too long. Exceeded Time Limit
+
 	/**
 	 * @param nums
 	 * @return
+	 * 202 / 202 test cases passed, but took too long. Exceeded Time Limit
 	 */
 	public static int maxSubArray(int[] nums) {
 		int largestSubarraySum;
@@ -91,11 +105,52 @@ largetSubarraySum);
 	}
 
 	
-	// Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Subarray.
-	// Memory Usage: 39.6 MB, less than 7.98% of Java online submissions for Maximum Subarray.
 	/**
 	 * @param nums
 	 * @return
+	 * Runtime: 2 ms, faster than 12.45% of Java online submissions for Maximum Subarray
+	 * Memory Usage: 41.3 MB, less than 5.16% of Java online submissions for Maximum Subarray.
+	 */
+	public static int maxSubArrayUsingDP(int nums[]) {
+		if (nums.length == 0 || nums == null)
+			throw new IllegalArgumentException();
+		int[] dp = new int[nums.length];
+		int maxSum = nums[0];
+		dp[0] = nums[0];
+		for (int index = 1; index < nums.length; index++) {
+			dp[index] = Math.max(nums[index], dp[index - 1] + nums[index]);
+			maxSum = Math.max(dp[index], maxSum);
+		}
+		return maxSum;
+
+	}
+	
+	
+	/**
+	 * @param nums
+	 * @return
+	 * Runtime: 1 ms, faster than 70.91% of Java online submissions for Maximum Subarray.
+	 * Memory Usage: 39.4 MB, less than 8.45% of Java online submissions for Maximum Subarray.
+	 */
+	public static int maxSubArrayUsingDPOptimizedSpace(int nums[]) {
+		if(nums.length==0||nums==null) {
+			throw new IllegalArgumentException();
+		}
+		int maxSum=nums[0];
+		int tempMaxSum=nums[0];
+		for(int index=1;index<nums.length;index++) {
+			tempMaxSum=Math.max(nums[index],tempMaxSum+nums[index]);
+			maxSum=Math.max(tempMaxSum, maxSum);
+		}
+		return maxSum;
+	}
+
+	
+	/**
+	 * @param nums
+	 * @return
+	 * Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Subarray
+	 * Memory Usage: 39.6 MB, less than 7.98% of Java online submissions for Maximum Subarray
 	 */
 	public static int maxSubArrayCalculation(int[] nums) {
 		int sum = 0;
