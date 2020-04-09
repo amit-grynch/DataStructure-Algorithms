@@ -22,8 +22,6 @@ package array.easy;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 public class BestTimeToBuyAndSellStock {
 
 	public static void main(String[] args) {
@@ -41,12 +39,21 @@ public class BestTimeToBuyAndSellStock {
 				for (int arrayIndex = 0; arrayIndex < arraySize; arrayIndex++) {
 					intArray[arrayIndex] = Integer.parseInt(stringArray[arrayIndex]);
 				}
+
 				// Solving using Brute Force Approach
 				maxProfit = calculateMaxProfit(intArray);
 				System.out.println(" Maximun Profit Made By Selling&Buying Share is = " + maxProfit);
 
-				// Optimizing Brute Force by Reducing For Loop from Two to One
+				// Optimizing by Reducing For Loop from Two to One
 				maxProfit = calculateMaxProfitOptimised(intArray);
+				System.out.println(" Maximun Profit Made By Selling&Buying Share is = " + maxProfit);
+
+				// Optimizing the Solution
+				maxProfit = findMaxProfit(intArray);
+				System.out.println(" Maximun Profit Made By Selling&Buying Share is = " + maxProfit);
+
+				// Optimized Solution
+				maxProfit = findingMaxProfit(intArray);
 				System.out.println(" Maximun Profit Made By Selling&Buying Share is = " + maxProfit);
 				System.out.println(" Do You Want to Continue if yes Then Press Y or y Other AnyKey ");
 				userChoice = br.readLine().charAt(0);
@@ -59,10 +66,10 @@ public class BestTimeToBuyAndSellStock {
 
 	/**
 	 * @param prices
-	 * @return Runtime: 258 ms, faster than 11.87% of Java online submissions for
-	 *         Best Time to Buy and Sell Stock. Memory Usage: 39.6 MB, less than
-	 *         18.14% of Java online submissions for Best Time to Buy and Sell
-	 *         Stock.
+	 * @return 
+	 * Runtime: 258 ms, faster than 11.87% of Java online submissions for Best Time to Buy and Sell Stock. 
+	 * Memory Usage: 39.6 MB, less than 18.14% of Java online submissions for Best Time to Buy and Sell  Stock.
+	 * Time Complexity =O(n^2) Space Complexity=O(1)
 	 */
 	public static int calculateMaxProfit(int[] prices) {
 		int maxProfit = 0;
@@ -82,17 +89,61 @@ public class BestTimeToBuyAndSellStock {
 		return maxProfit;
 	}
 
+	/**
+	 * @param prices
+	 * @return 
+	 * Runtime: 1 ms, faster than 99.12% of Java online submissions for Best Time to Buy and Sell Stock. 
+	 * Memory Usage: 39.4 MB, less than 22.56% of Java online submissions for Best Time to Buy and Sell Stock. 
+	 *     Time Complexity =O(n) Space Complexity=O(1)
+	 */
 	public static int calculateMaxProfitOptimised(int[] prices) {
-		int maxProfit = 0;
-		int tempProfit = 0;
-		int buyPrice=prices[0];
-		if (prices == null || prices.length == 1) {
-			throw new IllegalArgumentException();
+		int maxCur = 0, maxSoFar = 0;
+		for (int i = 1; i < prices.length; i++) {
+			maxCur = Math.max(0, maxCur += prices[i] - prices[i - 1]);
+			maxSoFar = Math.max(maxCur, maxSoFar);
 		}
-		
-		for(int index=0;index<prices.length;index++) {
-			 if(pric)
+		return maxSoFar;
+	}
+
+	/**
+	 * @param prices
+	 * @return 
+	 * Runtime: 1 ms, faster than 99.13% of Java online submissions for Best Time to Buy and Sell Stock. 
+	 * Memory Usage: 39.2 MB, less than 24.33% of Java online submissions for Best Time to Buy and Sell Stock.
+	 *       Time  Complexity =O(n) Space Complexity=O(1)
+	 */
+	public static int findMaxProfit(int[] prices) {
+		int maxProfit = 0;
+		int minPrice = Integer.MAX_VALUE;
+		for (int priceIndex = 0; priceIndex < prices.length; priceIndex++) {
+			if (minPrice > prices[priceIndex]) {
+				minPrice = prices[priceIndex];
+			} else if (prices[priceIndex] - minPrice > maxProfit) {
+				maxProfit = prices[priceIndex] - minPrice;
+			}
 		}
 		return maxProfit;
 	}
+
+	/**
+	 * @param prices
+	 * @return 
+	 * Runtime: 1 ms, faster than 99.13% of Java online submissions for Best Time to Buy and Sell Stock. 
+	 * Memory Usage: 39.8 MB, less than 11.94% of Java online submissions for Best Time to Buy and Sell Stock. 
+	 * Time Complexity =O(n) Space Complexity=O(1)
+	 */
+	public static int findingMaxProfit(int[] prices) {
+		int maxProfit = 0;
+		int minPrice = prices[0];
+		for (int priceIndex = 1; priceIndex < prices.length; priceIndex++) {
+			if (minPrice > prices[priceIndex])
+				minPrice = prices[priceIndex];
+			else
+				maxProfit = Math.max(maxProfit, prices[priceIndex] - minPrice);
+
+		}
+
+		return maxProfit;
+	}
+
 }
