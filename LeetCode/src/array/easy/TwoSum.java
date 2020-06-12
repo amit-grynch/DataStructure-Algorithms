@@ -58,8 +58,16 @@ public class TwoSum {
 				// Solving using Map
 				resultantIndices = findingTwoSumUsingMap(intArray, targetSum);
 				System.out.println("Indices Are : " + resultantIndices[0] + "  " + resultantIndices[1]);
+				
+			/*	Solving Using Two Pointer Approach 
+				Time Complexity=O(n) Space Complexity=O(n)
+          */				
+				resultantIndices = findingTwoSumUsingTwoPointer(intArray, targetSum);
+				System.out.println("Indices Are : " + resultantIndices[0] + "  " + resultantIndices[1]);
 				System.out.println(" Do you want to continue then Press Y ?");
 				userChoice = br.readLine().charAt(0);
+				
+				
 			} while (userChoice == 'Y' || userChoice == 'y');
 		} catch (Exception e) {
 			System.out.println("Doing SomeThing Wrong and Please check");
@@ -130,4 +138,53 @@ public class TwoSum {
 		}
 		return targetIndices;
 	}
+	
+	
+	//Runtime: 1 ms, faster than 99.93% of Java online submissions for Two Sum.
+	//Memory Usage: 39.5 MB, less than 67.81% of Java online submissions for Two Sum.
+	 public static int[] findingTwoSumUsingTwoPointer(int[] nums, int target) {
+		   if(nums == null)
+			    		return null;
+			    	int[] nums2 = Arrays.copyOf(nums, nums.length);
+			    	Arrays.sort(nums2);
+			    	int a = 0, b = 0;
+			    	int start = 0, end = nums2.length-1;
+			    	//find two nums
+			    	while(start<end){
+			    		int sum = nums2[start] + nums2[end];
+			    		if(sum < target)
+			    			start++;
+			    		else if(sum > target)
+			    			end--;
+			    		else{
+			    			a = nums2[start]; b = nums2[end];
+			    			break;
+			    		}
+			    	}
+			    	//find the index of two numbers
+			    	int[] res = new int[2];
+			    	for(int i = 0; i < nums.length; i++){
+			    		if(nums[i] == a){
+			    			res[0] = i;
+			    			break;
+			    		}
+			    	}
+			    	if(a != b){
+			    		for(int i = 0; i < nums.length; i++){
+				    		if(nums[i] == b){
+				    			res[1] = i;
+				    			break;
+				    		}
+				    	}
+			    	} else{
+			    		for(int i = 0; i < nums.length; i++){
+				    		if(nums[i] == b && i != res[0]){
+				    			res[1] = i;
+				    			break;
+				    		}
+				    	}
+			    	}
+			    	
+			    	return res;
+		}
 }
