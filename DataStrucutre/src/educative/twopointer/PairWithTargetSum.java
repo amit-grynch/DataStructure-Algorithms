@@ -87,8 +87,8 @@ public class PairWithTargetSum {
 	 * @param inputArray
 	 * @param targetSum
 	 * @return
-	 *  Time Complexity =O(N)
-	 * Space Complexity = O(N) i.e. Due to New HashTable
+	 *  Time Complexity =O(N)  where ‘N’ is the total number of elements in the given array.
+	 * Space Complexity = O(N) i.e. Due to New HashTable.in the worst case, we will be pushing ‘N’ numbers in the HashTable
 	 */
 	public static int[] findPairOfTwoSumUsingHashTable(int[] inputArray,int targetSum){
 	    int[] pairIndex=new int[2];
