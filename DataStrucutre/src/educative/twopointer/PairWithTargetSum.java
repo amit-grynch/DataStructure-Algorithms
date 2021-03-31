@@ -2,6 +2,7 @@ package educative.twopointer;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Hashtable;
 
 public class PairWithTargetSum {
 
@@ -28,11 +29,20 @@ public class PairWithTargetSum {
 				System.out.println("Enter The Target Sum : ");
 				int targetSum = Integer.parseInt(br.readLine());
 				int resultIndices[];
+				int resultIndicesHashTable[];
 				resultIndices = findPairOfTwoSum(intArray, targetSum);
+				resultIndicesHashTable=findPairOfTwoSumUsingHashTable(intArray,targetSum);
+				// Using Two Pointer
 				if(resultIndices!=null && resultIndices.length!=0)
 				System.out.println("Index Of Required Pair : " + resultIndices[0] + " " + resultIndices[1]);
 				else
 					System.out.println(" No Such Pair Found");
+				
+				// Using Hash Table
+				if(resultIndicesHashTable!=null && resultIndicesHashTable.length!=0)
+					System.out.println("Index Of Required Pair : " + resultIndicesHashTable[0] + " " + resultIndicesHashTable[1]);
+					else
+						System.out.println(" No Such Pair Found");
 				userChoice = br.readLine().charAt(0);
 			} while (userChoice == 'y' || userChoice == 'Y');
 		} catch (Exception ex) {
@@ -73,4 +83,25 @@ public class PairWithTargetSum {
 
 	}
 
+	/**
+	 * @param inputArray
+	 * @param targetSum
+	 * @return
+	 *  Time Complexity =O(N)
+	 * Space Complexity = O(N) i.e. Due to New HashTable
+	 */
+	public static int[] findPairOfTwoSumUsingHashTable(int[] inputArray,int targetSum){
+	    int[] pairIndex=new int[2];
+		Hashtable<Integer, Integer> pairTable=new Hashtable<>();
+		for(int arrayIndex=0;arrayIndex<inputArray.length;arrayIndex++){
+		  if(pairTable.containsKey(targetSum-inputArray[arrayIndex])){
+		       pairIndex[0]=arrayIndex;
+			   pairIndex[1]=pairTable.get(targetSum-inputArray[arrayIndex]);
+			} else {
+				pairTable.put(inputArray[arrayIndex], arrayIndex);
+			}
+	
+	}
+	  return pairIndex;
+	}
 }
