@@ -38,7 +38,7 @@ public class PairWithTargetSum {
 				else
 					System.out.println(" No Such Pair Found");
 				
-				// Using Hash Table
+				// Using HashTable
 				if(resultIndicesHashTable!=null && resultIndicesHashTable.length!=0)
 					System.out.println("Index Of Required Pair : " + resultIndicesHashTable[0] + " " + resultIndicesHashTable[1]);
 					else
