@@ -44,6 +44,7 @@ public class RemoveDuplicate {
 	
 	
 	public static int[] removeDuplicate(int[] intputArray) {
+		System.out.println();
 		return intputArray;
 		
 	}
