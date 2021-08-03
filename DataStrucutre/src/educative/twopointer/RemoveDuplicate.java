@@ -4,13 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- * @author amitg
+ * @author amit
  *
  */
 public class RemoveDuplicate {
 
 	/**
-	 * @param args
+	 * @param args 
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
